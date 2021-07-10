@@ -6,3 +6,7 @@ struct student {
 	int birthdate_day, birthdate_month, bithdate_year;
 	int scoreOf_lastyear;
 };
+struct node {
+	struct student data;
+	struct node* next;
+};
