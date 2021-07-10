@@ -1,4 +1,4 @@
-git #include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 struct student {
 	char student_name[20];
@@ -16,11 +16,17 @@ struct node* new_node;
 struct node* head;
 struct node* tail;
 struct student* temp;
+void funl(void);
 void fund(void);
 struct student insert(struct student y);
+void insert_first_l(struct student x);
+void insert_end_l(struct student x);
+void insert_middle_l(struct student x, int y);
 void insert_end_d(struct student* point, int m, struct student x);
 void insert_first_d(struct student* point, int m, struct student x);
 void insert_middle_d(struct student* point, int m, struct student x);
+
+
 
 
 int main()
@@ -41,7 +47,15 @@ int main()
 		break;
 
 	}
-
+	//********************************************************* LinkedList Test
+	/*int i = 1;
+	while (head)
+	{
+		printf("Name of Student %i: ", i);
+		printf("%s\n", (head->data.student_name));
+		head = head->next;
+		i++;
+	}*/
 	//*********************************************************************
 		//************************************************************************************ Test Dynamic Array
 
@@ -53,6 +67,43 @@ int main()
 
 	//************************************************************************************
 	return 0;
+}
+void funl(void)
+{
+	int h;
+	m = 0;
+	struct student s;
+	s.birthdate_day = 0;
+	s.birthdate_month = 0;
+	s.bithdate_year = 0;
+	s.id = 0;
+	s.scoreOf_lastyear = 0;
+	head = NULL;
+	tail = NULL;
+	printf("enter the number of students \n");
+	scanf("%i", &n);
+	for (i = 1;i <= n;i++)
+	{
+		insert_end_l(s);
+	}
+
+
+	printf("to insert at first press 1 \n to insert at end press 2 \n to insert at middle press 3 \n to exit press 0 \n");
+	scanf("%d", &h);
+	switch (h)
+	{
+	case 1:
+		insert_first_l(s);
+		break;
+	case 2:
+		insert_end_l(s);
+		break;
+	case 3:
+		insert_middle_l(s, n);
+	case 0:
+		break;
+	}
+
 }
 
 void fund(void)
@@ -103,6 +154,82 @@ void fund(void)
 
 }
 
+//linked list
+void insert_first_l(struct student x)
+{
+	if (m == 0)
+	{
+		new_node = (struct node*)malloc(sizeof(struct node));
+		head = tail = new_node;
+		new_node->next = NULL;
+		new_node->data = insert(x);
+
+	}
+	else
+	{
+		new_node = (struct node*)malloc(sizeof(struct node));
+		new_node->next = head;
+		head = new_node;
+		new_node->data = insert(x);
+	}
+	m++;
+}
+
+void insert_end_l(struct student x)
+{
+	if (m == 0)
+	{
+		new_node = (struct node*)malloc(sizeof(struct node));
+		head = tail = new_node;
+		new_node->next = NULL;
+		new_node->data = insert(x);
+
+
+	}
+	else
+	{
+		new_node = (struct node*)malloc(sizeof(struct node));
+		tail->next = new_node;
+		new_node->next = NULL;
+		tail = new_node;
+		new_node->data = insert(x);
+
+	}
+	m++;
+}
+void insert_middle_l(struct student x, int y)
+{
+	int d;//counter
+	struct node* curr;
+	new_node = (struct node*)malloc(sizeof(struct node));
+	curr = head;
+	if ((y + 1) % 2 == 0)
+	{
+		for (d = 1;d < (y + 1) / 2;d++)
+		{
+			curr = curr->next;
+		}
+		new_node->next = curr->next;
+		curr->next = new_node;
+		printf("\n enter the new student \n");
+		new_node->data = insert(x);
+		m++;
+	}
+	else
+	{
+		for (d = 1;d < y / 2;d++)
+		{
+			curr = curr->next;
+		}
+		new_node->next = curr->next;
+		curr->next = new_node;
+		printf("\n enter the new student \n");
+		new_node->data = insert(x);
+		m++;
+	}
+
+}
+//dynamic array
 void insert_end_d(struct student* point, int m, struct student x)
 {
 	m++;
@@ -176,4 +303,3 @@ struct student insert(struct student y)
 	scanf("%i", &(y.scoreOf_lastyear));
 	return y;
 }
-
